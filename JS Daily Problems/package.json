@@ -1,0 +1,9 @@
+{
+  "name": "js-daily-problems",
+  "version": "0.0.0",
+  "description": "JS Daily Problems",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
