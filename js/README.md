@@ -1,3 +1,3 @@
-# JS Daily Problems
+# js
 
 
