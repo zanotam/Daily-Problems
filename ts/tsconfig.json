@@ -1,9 +1,12 @@
+//vue style config
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "lib": ["es6"],
-    "sourceMap": true
+    "target": "esnext",
+    "module": "esnext",
+    // this enables stricter inference for data properties on `this`
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
   },
   "exclude": [
     "node_modules"

@@ -1,7 +1,9 @@
+import { exception } from "console";
+
 class GraphNode {
     label: string
     neighbors: Set<GraphNode>
-    color: string
+    color: string | null
     constructor(label: string) {
       this.label = label;
       this.neighbors = new Set<GraphNode>();
@@ -24,9 +26,10 @@ class GraphNode {
   
     // Create a valid coloring for the graph
   
+
     //need to make sure not in infinite loop/graph has a cycle. 
-    if (isCyclic(graph)) {
-  
+    if (hasLoop(graph)) {
+        throw exception("Graph has a loop and thus cannot be legally colored!");
     } else {
       //maybe break down and go through each node in some sort of order coloring a subgraph consisting of just the attached nodes
       // the trick being to use the nodes already colored by previous subgraph colorings....
@@ -42,16 +45,65 @@ class GraphNode {
       return graph;
     }
   };
+
+  function hasLoop (graph: Array<GraphNode>): boolean {
+      for (let node of graph) {
+          if (node.neighbors.has(node)) {
+              return true;
+          }
+      }
+      return false; 
+  }
   
-  function isCyclic(graph: Array<GraphNode>): boolean {
-    let isTree = false;
-    //cycle through every node as base node.
-    //get list of neighbors of neighbors minus base node
-    //while list of neighbors is not equal to graph and list of new neighbors is nonempty
-    //get list of new neighbors by finding neighbors of list of neighbors of neigbhors? something... wait no. that doesn't work. 
-    //since it's an array does the slow+fast runner waiting until they meetup trick work?
-    return isTree;
-  };
+//   function isCyclic(graph: Array<GraphNode>): boolean {
+//     let isCycle = false;
+    
+//     //cycle through every node as base node.
+//     //get list of neighbors of neighbors minus base node
+//     //while list of neighbors is not equal to graph and list of new neighbors is nonempty
+//     //get list of new neighbors by finding neighbors of list of neighbors of neigbhors? something... wait no. that doesn't work. 
+//     //since it's an array does the slow+fast runner waiting until they meetup trick work?
+
+//     //ended up just googling it lol
+
+//     //setup visitation map!
+//     let visited: Map<GraphNode, boolean> = new Map<GraphNode, boolean>();
+//     for (let node of graph) {
+//         visited.set(node, false);
+//     }
+
+
+//     //define helper function which is a closure
+//     function cycleHelper(node: GraphNode, visited: Map<GraphNode, boolean>, parent: GraphNode) {
+//         let foundCycle = false;
+//         visited.set(node, true); // node has been visited!
+//         let subGraph = node.neighbors.values();
+//         for (let i of subGraph) {
+//             if (!visited.get(i)) {
+//                 if(cycleHelper(i, visited, node)) {
+//                     foundCycle = true;
+//                     break;
+//                 }
+//             }
+//             else if (parent !== i) {
+//                 foundCycle = true;
+//                 break;
+//             }
+//         }
+//         return foundCycle;
+//     }
+
+//     //recurse using helper function
+//     for (let node of graph) {
+//         if (!visited.get(node)) {
+//             if(cycleHelper(node, visited, new GraphNode(""))) {
+//                 isCycle = true;
+//                 break;
+//             }
+//         }
+//     }
+//     return isCycle;
+// };
 
 
 
